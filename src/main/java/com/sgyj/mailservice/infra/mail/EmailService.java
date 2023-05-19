@@ -17,16 +17,16 @@ public interface EmailService {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
         mimeMessageHelper.setTo(emailMessage.getTo());
         mimeMessageHelper.setSubject(emailMessage.getSubject());
-        mimeMessageHelper.setText(setContext(emailMessage.getSubject(), emailMessage.getMessage()), true);
+        mimeMessageHelper.setText(setContext(emailMessage.getSubject(), emailMessage.getMessage(), emailMessage.getHtmlCode()), true);
         getJavaMailSender().send(mimeMessage);
 
     }
 
-    private String setContext(String subject, String message) {
+    private String setContext(String subject, String message, String htmlCode) {
         Context context = new Context();
         context.setVariable("subject", subject);
         context.setVariable("message", message);
-        return getSpringTemplateEngine().process(subject, context);
+        return getSpringTemplateEngine().process(htmlCode, context);
     }
 
 
