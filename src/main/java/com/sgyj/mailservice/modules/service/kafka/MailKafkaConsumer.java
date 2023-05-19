@@ -44,7 +44,7 @@ public class MailKafkaConsumer {
     }
 
     private EmailMessage createEmailMessage(String email, MailSubject mailSubject, String authCode) {
-        return EmailMessage.builder().to(email).subject(mailSubject.getSubject()).htmlCode(mailSubject.getHtmlCode()).message(authCode).build();
+        return EmailMessage.builder().to(email).mailSubject(mailSubject).message(authCode).build();
     }
 
     public CountDownLatch getLatch() {

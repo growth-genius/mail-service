@@ -1,5 +1,7 @@
 package com.sgyj.mailservice.infra.mail;
 
+import com.sgyj.mailservice.modules.entity.enums.EmailType;
+import com.sgyj.mailservice.modules.enums.MailSubject;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,11 +9,24 @@ import lombok.Data;
 @Builder
 public class EmailMessage {
 
+    private Long accountId;
+
     private String to;
 
-    private String subject;
+    private MailSubject mailSubject;
 
     private String message;
 
-    private String htmlCode;
+    public String getSubject() {
+        return mailSubject.getSubject();
+    }
+
+    public String getHtmlCode() {
+        return mailSubject.getHtmlCode();
+    }
+
+    public EmailType getEmailType() {
+        return mailSubject.getEmailType();
+    }
+
 }
