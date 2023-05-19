@@ -13,4 +13,5 @@ public class EmailMessage {
 
     private String message;
 
+    private String htmlCode;
 }
