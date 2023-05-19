@@ -29,7 +29,10 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://192.168.0.62:8761/eureka
-
+kafka:
+  bootstrap-servers-config: 127.0.0.1
+  group-id-config: mail-service
+  user-topic:
 
 jasypt:
   encryptor:
