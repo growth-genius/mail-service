@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sgyj.mailservice.infra.mail.EmailMessage;
 import com.sgyj.mailservice.infra.mail.EmailService;
+import com.sgyj.mailservice.modules.common.annotation.BaseServiceAnnotation;
 import com.sgyj.mailservice.modules.dto.AccountDto;
 import com.sgyj.mailservice.modules.enums.MailSubject;
 import java.util.concurrent.CountDownLatch;
@@ -11,11 +12,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@Service
+@BaseServiceAnnotation
 @RequiredArgsConstructor
 public class MailKafkaConsumer {
 
@@ -35,7 +35,7 @@ public class MailKafkaConsumer {
         emailService.sendEmail(createEmailByAuthCode(accountDto.getEmail()));
 
     }
-    
+
 
     private EmailMessage createEmailByAuthCode(String email) {
         String authCode = RandomStringUtils.randomAlphanumeric(12);
