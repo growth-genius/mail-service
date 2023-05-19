@@ -27,22 +27,24 @@ public class MailKafkaConsumer {
     @Transactional
     @KafkaListener(topics = "password-mail-topic")
     public void processSendPasswordByMail(String kafkaMessage) throws JsonProcessingException {
+
         log.info("Kafka Message : ===> " + kafkaMessage);
         AccountDto accountDto = objectMapper.readValue(kafkaMessage, AccountDto.class);
         email = accountDto.getEmail();
         latch.countDown();
-        emailService.sendEmail(createEmailByAuthCode(accountDto.getEmail(), MailSubject.VALID_AUTHENTICATION_ACCOUNT.getSubject()));
+        emailService.sendEmail(createEmailByAuthCode(accountDto.getEmail()));
 
     }
+    
 
-    private EmailMessage createEmailByAuthCode(String email, String subject) {
+    private EmailMessage createEmailByAuthCode(String email) {
         String authCode = RandomStringUtils.randomAlphanumeric(12);
         log.debug("AuthCode : " + authCode);
-        return createEmailMessage(email, subject, authCode);
+        return createEmailMessage(email, MailSubject.VALID_AUTHENTICATION_ACCOUNT, authCode);
     }
 
-    private EmailMessage createEmailMessage(String email, String subject, String authCode) {
-        return EmailMessage.builder().to(email).subject(subject).message(authCode).build();
+    private EmailMessage createEmailMessage(String email, MailSubject mailSubject, String authCode) {
+        return EmailMessage.builder().to(email).subject(mailSubject.getSubject()).htmlCode(mailSubject.getHtmlCode()).message(authCode).build();
     }
 
     public CountDownLatch getLatch() {
