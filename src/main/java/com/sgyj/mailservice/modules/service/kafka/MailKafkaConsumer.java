@@ -25,7 +25,7 @@ public class MailKafkaConsumer {
     private final CountDownLatch latch = new CountDownLatch(1);
 
     @Transactional
-    @KafkaListener(topics = "password-mail-topic")
+    @KafkaListener(topics = "${kafka.user-topic.authentication-mail-topic}")
     public void processSendPasswordByMail(String kafkaMessage) throws JsonProcessingException {
 
         log.info("Kafka Message : ===> " + kafkaMessage);
@@ -35,8 +35,7 @@ public class MailKafkaConsumer {
         emailService.sendEmail(createEmailByAuthCode(accountDto.getEmail()));
 
     }
-
-
+    
     private EmailMessage createEmailByAuthCode(String email) {
         String authCode = RandomStringUtils.randomAlphanumeric(12);
         log.debug("AuthCode : " + authCode);

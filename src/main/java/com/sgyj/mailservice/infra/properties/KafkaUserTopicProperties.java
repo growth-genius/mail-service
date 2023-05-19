@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("kafka.user-topic")
 public class KafkaUserTopicProperties {
 
-    private String passwordMailTopic;
+    private String authenticationMailTopic;
     private String accountTopic;
 
 }

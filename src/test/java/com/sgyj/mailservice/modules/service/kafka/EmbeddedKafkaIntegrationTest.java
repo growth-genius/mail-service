@@ -33,7 +33,7 @@ class EmbeddedKafkaIntegrationTest {
         AccountDto accountDto = new AccountDto();
         String email = "leesg107@naver.com";
         accountDto.setEmail(email);
-        kafkaProducer.send(kafkaUserTopicProperties.getPasswordMailTopic(), accountDto);
+        kafkaProducer.send(kafkaUserTopicProperties.getAuthenticationMailTopic(), accountDto);
         consumer.getLatch().await(10000, TimeUnit.MILLISECONDS);
         assertEquals(email, consumer.getEmail());
     }
