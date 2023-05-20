@@ -3,6 +3,20 @@ server:
 spring:
   application:
     name: mail-service
+  profiles:
+    active: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    # driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:///commons-test
+  flyway:
+    enabled: false
   h2:
     console:
       enabled: true
@@ -30,8 +44,11 @@ eureka:
     service-url:
       defaultZone: http://192.168.0.62:8761/eureka
 kafka:
-  bootstrap-servers-config: 127.0.0.1
+  bootstrap-servers-config: 127.0.0.1:9092
   group-id-config: mail-service
+  user-topic:
+    authentication-mail-topic: authentication_mail_topic
+    account-topic: account-test-topic
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
