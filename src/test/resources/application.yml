@@ -47,7 +47,7 @@ kafka:
   bootstrap-servers-config: 127.0.0.1:9092
   group-id-config: mail-service
   user-topic:
-    password-mail-topic: password-mail-topic
+    authentication-mail-topic: authentication_mail_topic
     account-topic: account-test-topic
 jasypt:
   encryptor:
