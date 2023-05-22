@@ -1,6 +1,6 @@
 package com.sgyj.mailservice.infra.config;
 
-import com.sgyj.mailservice.infra.properties.KafkaConfigProperties;
+import com.sgyj.commonservice.properties.KafkaConfigProperties;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

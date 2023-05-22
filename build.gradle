@@ -70,9 +70,10 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.80.Final:osx-aarch_64'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.18.2'
 
     //querydsl 추가
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"

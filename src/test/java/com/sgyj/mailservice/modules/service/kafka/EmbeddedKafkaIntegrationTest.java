@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sgyj.commonservice.dto.mail.EmailMessage;
 import com.sgyj.commonservice.dto.mail.MailSubject;
-import com.sgyj.mailservice.infra.properties.KafkaUserTopicProperties;
+import com.sgyj.commonservice.properties.KafkaUserTopicProperties;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
