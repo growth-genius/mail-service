@@ -1,4 +1,4 @@
-package com.sgyj.mailservice;
+package com.sgyj;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
