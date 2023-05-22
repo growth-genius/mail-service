@@ -1,5 +1,6 @@
 package com.sgyj.mailservice.infra.mail;
 
+import com.sgyj.commonservice.dto.mail.EmailMessage;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,9 +18,8 @@ public interface EmailService {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
         mimeMessageHelper.setTo(emailMessage.getTo());
         mimeMessageHelper.setSubject(emailMessage.getSubject());
-        mimeMessageHelper.setText(setContext(emailMessage.getSubject(), emailMessage.getMessage(), emailMessage.getHtmlCode()), true);
+        mimeMessageHelper.setText(setContext(emailMessage.getSubject(), emailMessage.getMessage(), emailMessage.getHtmlFileName()), true);
         getJavaMailSender().send(mimeMessage);
-
     }
 
     private String setContext(String subject, String message, String htmlCode) {
@@ -28,7 +28,6 @@ public interface EmailService {
         context.setVariable("message", message);
         return getSpringTemplateEngine().process(htmlCode, context);
     }
-
 
     JavaMailSender getJavaMailSender();
 
