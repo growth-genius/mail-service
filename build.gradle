@@ -24,7 +24,17 @@ configurations {
 
 repositories {
     mavenCentral()
-    maven { url 'https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates' }
+    maven {
+        url 'https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates'
+    }
+    maven {
+        credentials {
+            username = repoUsername    // System.getenv("NEXUS_ID") : 추후 하드코딩이 아닌 환경설정으로 처리
+            password = repoPassword   // System.getenv("NEXUS_PASSWORD")
+        }
+        url "${nexusBaseUrl}/tgather-public/"
+        allowInsecureProtocol = true    // http 허용, https로 변경하면 필요없음.
+    }
 }
 
 ext {
@@ -53,7 +63,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-
+    implementation 'com.sgyj:common-service:1.0.8'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
@@ -61,9 +71,7 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
-
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.80.Final:osx-aarch_64'
-
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
     //querydsl 추가
