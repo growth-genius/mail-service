@@ -2,9 +2,9 @@ package com.sgyj.mailservice.modules.service.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sgyj.commonservice.annotation.BaseServiceAnnotation;
 import com.sgyj.commonservice.dto.mail.EmailMessage;
 import com.sgyj.mailservice.infra.mail.EmailService;
-import com.sgyj.mailservice.modules.common.annotation.BaseServiceAnnotation;
 import java.util.concurrent.CountDownLatch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

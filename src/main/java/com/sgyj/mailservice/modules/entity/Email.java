@@ -2,7 +2,7 @@ package com.sgyj.mailservice.modules.entity;
 
 import com.sgyj.commonservice.dto.mail.EmailMessage;
 import com.sgyj.commonservice.dto.mail.EmailType;
-import com.sgyj.mailservice.modules.common.UpdatedEntity;
+import com.sgyj.commonservice.jpa.UpdatedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
