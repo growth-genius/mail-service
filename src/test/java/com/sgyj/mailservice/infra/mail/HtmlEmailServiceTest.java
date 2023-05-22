@@ -2,8 +2,9 @@ package com.sgyj.mailservice.infra.mail;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.sgyj.commonservice.dto.mail.EmailMessage;
+import com.sgyj.commonservice.dto.mail.MailSubject;
 import com.sgyj.mailservice.modules.entity.Email;
-import com.sgyj.mailservice.modules.enums.MailSubject;
 import com.sgyj.mailservice.modules.repository.MailRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,8 @@ class HtmlEmailServiceTest {
     @DisplayName("메일 전송 후 Email entity 저장 테스트")
     void sendEmail() throws Exception {
         String email = "leesg107@naver.com";
-        EmailMessage emailMessage = EmailMessage.builder().accountId(1L).message("authCode").mailSubject(MailSubject.VALID_AUTHENTICATION_ACCOUNT).to(email)
-            .build();
+        EmailMessage emailMessage = EmailMessage.builder().accountId("ATUATOEUA").message("authCode").mailSubject(MailSubject.VALID_AUTHENTICATION_ACCOUNT)
+            .to(email).build();
         emailService.sendEmail(emailMessage);
 
         Email emailEntity = mailRepository.findByEmailAddress(email).orElseThrow(Exception::new);
