@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: mail-service
+  profiles:
+    activate:
+      on-profile: dev
   h2:
     console:
       enabled: true
