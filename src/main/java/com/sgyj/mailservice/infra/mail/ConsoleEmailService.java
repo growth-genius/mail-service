@@ -1,5 +1,6 @@
 package com.sgyj.mailservice.infra.mail;
 
+import com.sgyj.commonservice.dto.mail.EmailMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;

@@ -1,5 +1,6 @@
 package com.sgyj.mailservice.infra.mail;
 
+import com.sgyj.commonservice.dto.mail.EmailMessage;
 import com.sgyj.mailservice.modules.entity.Email;
 import com.sgyj.mailservice.modules.repository.MailRepository;
 import jakarta.mail.MessagingException;

@@ -1,8 +1,8 @@
 package com.sgyj.mailservice.modules.entity;
 
-import com.sgyj.mailservice.infra.mail.EmailMessage;
-import com.sgyj.mailservice.modules.common.UpdatedEntity;
-import com.sgyj.mailservice.modules.entity.enums.EmailType;
+import com.sgyj.commonservice.dto.mail.EmailMessage;
+import com.sgyj.commonservice.dto.mail.EmailType;
+import com.sgyj.commonservice.jpa.UpdatedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +22,7 @@ public class Email extends UpdatedEntity {
     @Column(name = "email_id")
     private Long id;
 
-    private Long accountId;
+    private String accountId;
 
     private String emailAddress;
 
