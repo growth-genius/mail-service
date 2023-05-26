@@ -19,7 +19,7 @@ eureka:
     register-with-eureka: true # eureka
     fetch-registry: true
     service-url:
-      defaultZone: http://192.168.0.62:8761/eureka
+      defaultZone: http://tgather:8761/eureka
 kafka:
-  bootstrap-servers-config: 127.0.0.1
+  bootstrap-servers-config: 172.18.0.101:9092
   group-id-config: mail-service
