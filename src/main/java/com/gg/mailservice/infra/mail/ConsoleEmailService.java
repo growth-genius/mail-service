@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @Slf4j
-@Profile({"local", "test"})
+@Profile({"local", "test", "default"})
 @Component
 public class ConsoleEmailService implements EmailService {
 

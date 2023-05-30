@@ -9,6 +9,7 @@ plugins {
     id 'jacoco'
     id 'org.springframework.boot' version '3.0.6'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'nu.studer.credentials' version '3.0'
 }
 
 
@@ -22,13 +23,17 @@ configurations {
     }
 }
 
+String repoUsername = credentials.forKey('repoUsername')
+String repoPassword = credentials.forKey('repoPassword')
+String nexusBaseUrl = credentials.forKey('nexusBaseUrl')
+
 repositories {
     mavenCentral()
     maven {
         url 'https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates'
     }
     maven {
-        credentials {
+        credentials(PasswordCredentials) {
             username = repoUsername    // System.getenv("NEXUS_ID") : 추후 하드코딩이 아닌 환경설정으로 처리
             password = repoPassword   // System.getenv("NEXUS_PASSWORD")
         }
