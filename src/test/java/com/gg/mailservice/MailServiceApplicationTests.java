@@ -1,5 +1,4 @@
-package com.gg;
-
+package com.gg.mailservice;
 import org.junit.jupiter.api.Test;
 
 //@SpringBootTest
