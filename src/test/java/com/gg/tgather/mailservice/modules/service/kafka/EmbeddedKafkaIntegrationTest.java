@@ -35,7 +35,7 @@ class EmbeddedKafkaIntegrationTest {
     @DisplayName("카프카 컨슈머 동작 확인")
     void kafkaConsumerTest() throws JsonProcessingException, InterruptedException {
         EmailMessage emailMessage = EmailMessage.builder().accountId("QJEQRJQEROJGEQ").to("leesg107@naver.com")
-            .mailSubject(MailSubject.VALID_AUTHENTICATION_ACCOUNT).message("이승구 나쁜놈").build();
+            .mailSubject(MailSubject.VALID_AUTHENTICATION_ACCOUNT).message("authcode_").build();
         kafkaProducer.send(kafkaUserTopicProperties.getAuthenticationMailTopic(), emailMessage);
         consumer.getLatch().await(10000, TimeUnit.MILLISECONDS);
         assertEquals("leesg107@naver.com", emailMessage.getTo());
