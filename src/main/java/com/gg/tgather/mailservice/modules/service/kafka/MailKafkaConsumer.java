@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
@@ -21,20 +22,18 @@ public class MailKafkaConsumer {
     private final EmailService emailService;
     private final ObjectMapper objectMapper;
 
-    private String email;
     private final CountDownLatch latch = new CountDownLatch(1);
 
     @Transactional
-    @KafkaListener(topics = "${kafka.user-topic.authentication-mail-topic}")
+    @KafkaListener(topics = "${kafka.user-topic.authentication-mail-topic}", errorHandler = "mailErrorHandler")
+    @SendTo("${kafka.email-topic.send-email-fail-topic}")
     public void processSendPasswordByMail(String kafkaMessage) throws JsonProcessingException {
-
         log.info("Kafka Message : ===> " + kafkaMessage);
         EmailMessage emailMessage = objectMapper.readValue(kafkaMessage, EmailMessage.class);
         latch.countDown();
         emailService.sendEmail(emailMessage);
-
     }
-    
+
     private EmailMessage createEmailByAuthCode(String email) {
         String authCode = RandomStringUtils.randomAlphanumeric(12);
         log.debug("AuthCode : " + authCode);
@@ -44,6 +43,7 @@ public class MailKafkaConsumer {
     private EmailMessage createEmailMessage(String email, MailSubject mailSubject, String authCode) {
         return EmailMessage.builder().to(email).mailSubject(mailSubject).message(authCode).build();
     }
+
     public CountDownLatch getLatch() {
         return latch;
     }
