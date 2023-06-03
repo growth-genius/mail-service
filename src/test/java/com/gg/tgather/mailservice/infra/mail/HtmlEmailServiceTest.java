@@ -4,17 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.gg.tgather.commonservice.dto.mail.EmailMessage;
 import com.gg.tgather.commonservice.dto.mail.MailSubject;
-import com.gg.tgather.mailservice.infra.mail.EmailService;
 import com.gg.tgather.mailservice.modules.entity.Email;
 import com.gg.tgather.mailservice.modules.repository.MailRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "dev")
 class HtmlEmailServiceTest {
 
     @Autowired
