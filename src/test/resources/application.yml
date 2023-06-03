@@ -23,7 +23,12 @@ spring:
       settings:
         web-allow-others: true
       path: /h2-console
-
+  kafka:
+    producer:
+      bootstrap-servers: PLAINTEXT://localhost:9092
+    consumer:
+      bootstrap-servers: PLAINTEXT://localhost:9092
+      group-id: mail-service
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
@@ -31,10 +36,13 @@ eureka:
     register-with-eureka: true # eureka
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://sgyj-dev.synology.me:8761/eureka
 kafka:
   bootstrap-servers-config: 127.0.0.1:9092
   group-id-config: mail-service
   user-topic:
+    mail-send-topic: mail_send_topic
+    account-topic: account_topic
     authentication-mail-topic: authentication_mail_topic
-    account-topic: account-test-topic
+  email-topic:
+    send-mail-fail-topic: send_mail_fail_topic
