@@ -1,15 +1,12 @@
 package com.gg.tgather.mailservice.modules.service.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gg.tgather.commonservice.annotation.BaseServiceAnnotation;
 import com.gg.tgather.commonservice.dto.mail.EmailMessage;
-import com.gg.tgather.commonservice.dto.mail.MailSubject;
 import com.gg.tgather.mailservice.infra.mail.EmailService;
 import java.util.concurrent.CountDownLatch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,30 +17,41 @@ public class MailKafkaConsumer {
 
     private final EmailService emailService;
     private final ObjectMapper objectMapper;
+    private final KafkaProducer kafkaProducer;
 
     private String email;
     private final CountDownLatch latch = new CountDownLatch(1);
 
     @Transactional
     @KafkaListener(topics = "${kafka.user-topic.authentication-mail-topic}")
-    public void processSendPasswordByMail(String kafkaMessage) throws JsonProcessingException {
-
-        log.info("Kafka Message : ===> " + kafkaMessage);
-        EmailMessage emailMessage = objectMapper.readValue(kafkaMessage, EmailMessage.class);
-        latch.countDown();
-        emailService.sendEmail(emailMessage);
-
-    }
-    
-    private EmailMessage createEmailByAuthCode(String email) {
-        String authCode = RandomStringUtils.randomAlphanumeric(12);
-        log.debug("AuthCode : " + authCode);
-        return createEmailMessage(email, MailSubject.VALID_AUTHENTICATION_ACCOUNT, authCode);
+    public void processSendPasswordByMail(String kafkaMessage) {
+        EmailMessage emailMessage = EmailMessage.builder().build();
+        try {
+            log.info("Kafka Message : ===> " + kafkaMessage);
+            emailMessage = objectMapper.readValue(kafkaMessage, EmailMessage.class);
+            latch.countDown();
+            emailService.sendEmail(emailMessage);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            kafkaProducer.sendFailedEmail(emailMessage);
+        }
     }
 
-    private EmailMessage createEmailMessage(String email, MailSubject mailSubject, String authCode) {
-        return EmailMessage.builder().to(email).mailSubject(mailSubject).message(authCode).build();
+    @Transactional
+    @KafkaListener(topics = "${kafka.travel-group-topic.send-request-join-travel-group-topic}")
+    public void processJoinTravelGroupByMail(String kafkaMessage) {
+        EmailMessage emailMessage = EmailMessage.builder().build();
+        try {
+            log.info("Kafka Message : ===> " + kafkaMessage);
+            emailMessage = objectMapper.readValue(kafkaMessage, EmailMessage.class);
+            latch.countDown();
+            emailService.sendEmail(emailMessage);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            kafkaProducer.sendFailedEmail(emailMessage);
+        }
     }
+
     public CountDownLatch getLatch() {
         return latch;
     }
